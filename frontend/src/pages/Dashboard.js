@@ -388,7 +388,7 @@ function Dashboard() {
                   if (!title) return;
                   const type = window.prompt('Type (Court Date / Deadline / Reminder)', 'Deadline');
                   try {
-                    await API.post('/deadlines', { title, date: info.dateStr, type });
+                    await API.post('/api/deadlines', { title, date: info.dateStr, type });
                     seedAndFetch();
                     setToast({ id: Date.now(), message: 'Deadline created' });
                     setTimeout(() => setToast(null), 5000);
@@ -487,7 +487,7 @@ function Dashboard() {
             <p>Total Tasks: <strong>{tasks.length}</strong></p>
             <p>Completed: <strong>{completedTasks}</strong></p>
             <p>Pending: <strong>{tasks.filter(t => t.status === "Pending").length}</strong></p>
-            <p>Completion Rate: <strong>{((completedTasks / tasks.length) * 100).toFixed(1)}%</strong></p>
+            <p>Completion Rate: <strong>{(tasks.length ? ((completedTasks / tasks.length) * 100).toFixed(1) : 0)}%</strong></p>
           </div>
           <div>
             <h4 style={{ color: "#e74c3c", marginBottom: "0.5rem" }}>Document Status</h4>

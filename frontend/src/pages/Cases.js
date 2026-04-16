@@ -24,7 +24,7 @@ function Cases() {
   const fetchCases = async () => {
     setLoading(true);
     try {
-      const res = await API.get("/api/cases");
+      const res = await API.get("/api/cases").catch(() => ({ data: [] }));
       setCases(res.data || []);
       setFilteredCases(res.data || []);
     } catch (err) {
@@ -83,10 +83,10 @@ function Cases() {
     e.preventDefault();
     try {
       if (editingId) {
-        await API.put(`/cases/${editingId}`, form);
+        await API.put(`/api/cases/${editingId}`, form);
         setMessage("✓ Case updated successfully!");
       } else {
-        await API.post("/cases", form);
+        await API.post("/api/cases", form);
         setMessage("✓ Case added successfully!");
       }
       setForm({
@@ -108,7 +108,7 @@ function Cases() {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this case?")) {
       try {
-        await API.delete(`/cases/${id}`);
+        await API.delete(`/api/cases/${id}`);
         setMessage("✓ Case deleted successfully!");
         setTimeout(() => setMessage(""), 3000);
         fetchCases();

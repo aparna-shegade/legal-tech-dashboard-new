@@ -73,7 +73,7 @@ function Tasks() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await API.post("/tasks", form);
+      await API.post("/api/tasks", form);
       setMessage("✓ Task added successfully!");
       setForm({
         caseId: "",
@@ -93,7 +93,7 @@ function Tasks() {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this task?")) {
       try {
-        await API.delete(`/tasks/${id}`);
+        await API.delete(`/api/tasks/${id}`);
         setMessage("✓ Task deleted successfully!");
         setTimeout(() => setMessage(""), 3000);
         fetchTasks();
