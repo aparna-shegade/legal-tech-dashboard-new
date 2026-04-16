@@ -23,8 +23,8 @@ function Documents() {
     setLoading(true);
     try {
       const [docsRes, casesRes] = await Promise.all([
-        API.get("/documents"),
-        API.get("/cases")
+        API.get("/api/documents"),
+        API.get("/api/cases")
       ]);
       setDocuments(docsRes.data);
       setFilteredDocuments(docsRes.data);

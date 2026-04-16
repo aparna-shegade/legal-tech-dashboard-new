@@ -23,8 +23,8 @@ function Tasks() {
     setLoading(true);
     try {
       const [tasksRes, casesRes] = await Promise.all([
-        API.get("/tasks").catch(() => ({ data: [] })),
-        API.get("/cases").catch(() => ({ data: [] }))
+        API.get("/api/tasks").catch(() => ({ data: [] })),
+        API.get("/api/cases").catch(() => ({ data: [] }))
       ]);
       setTasks(tasksRes.data || []);
       setFilteredTasks(tasksRes.data || []);

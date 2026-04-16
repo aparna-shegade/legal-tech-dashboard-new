@@ -19,7 +19,7 @@ function Clients() {
   const fetchClients = async () => {
     setLoading(true);
     try {
-      const res = await API.get("/clients");
+      const res = await API.get("/api/clients");
       setClients(res.data || []);
       setFilteredClients(res.data || []);
     } catch (err) {

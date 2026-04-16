@@ -24,7 +24,7 @@ function Cases() {
   const fetchCases = async () => {
     setLoading(true);
     try {
-      const res = await API.get("/cases");
+      const res = await API.get("/api/cases");
       setCases(res.data || []);
       setFilteredCases(res.data || []);
     } catch (err) {
