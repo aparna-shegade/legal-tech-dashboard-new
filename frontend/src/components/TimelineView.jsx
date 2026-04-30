@@ -8,7 +8,7 @@ const TimelineView = () => {
 
   useEffect(() => {
     // fetch deadlines
-    axios.get("/api/deadlines")
+    axios.get("/deadlines")
       .then(res => {
         // make sure we only transform well-formed deadline objects
         const formattedTasks = (res.data || [])

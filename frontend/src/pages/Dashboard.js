@@ -42,29 +42,29 @@ function Dashboard() {
     try {
       // attempt to seed the database only if it's empty
       try {
-        const { data } = await API.get('/api/cases');
+        const { data } = await API.get('/cases');
         if (!data || data.length === 0) {
-          await API.post("/api/seed/seed");
+          await API.post("/seed/seed");
         }
       } catch (seedCheckErr) {
         // if even the GET fails, still try to seed
         console.warn("Seed check failed, attempting reseed:", seedCheckErr.message || seedCheckErr);
         try {
-          await API.post("/api/seed/seed");
+          await API.post("/seed/seed");
         } catch (_) {}
       }
 
       const [casesRes, clientsRes, tasksRes, docsRes] = await Promise.all([
-        API.get("/api/cases").catch(() => ({ data: [] })),
-        API.get("/api/clients").catch(() => ({ data: [] })),
-        API.get("/api/tasks").catch(() => ({ data: [] })),
-        API.get("/api/documents").catch(() => ({ data: [] }))
+        API.get("/cases").catch(() => ({ data: [] })),
+        API.get("/clients").catch(() => ({ data: [] })),
+        API.get("/tasks").catch(() => ({ data: [] })),
+        API.get("/documents").catch(() => ({ data: [] }))
       ]);
       setCases(casesRes.data || []);
       setClients(clientsRes.data || []);
       setTasks(tasksRes.data || []);
       setDocuments(docsRes.data || []);
-      const dlRes = await API.get('/api/deadlines/upcoming?days=30').catch(() => ({ data: [] }));
+      const dlRes = await API.get('/deadlines/upcoming?days=30').catch(() => ({ data: [] }));
       setDeadlines(dlRes.data || []);
     } catch (err) {
       console.error("Error during seedAndFetch:", err);
@@ -388,7 +388,7 @@ function Dashboard() {
                   if (!title) return;
                   const type = window.prompt('Type (Court Date / Deadline / Reminder)', 'Deadline');
                   try {
-                    await API.post('/api/deadlines', { title, date: info.dateStr, type });
+                    await API.post('/deadlines', { title, date: info.dateStr, type });
                     seedAndFetch();
                     setToast({ id: Date.now(), message: 'Deadline created' });
                     setTimeout(() => setToast(null), 5000);

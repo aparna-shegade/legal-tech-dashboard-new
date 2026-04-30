@@ -23,8 +23,8 @@ function Tasks() {
     setLoading(true);
     try {
       const [tasksRes, casesRes] = await Promise.all([
-        API.get("/api/tasks").catch(() => ({ data: [] })),
-        API.get("/api/cases").catch(() => ({ data: [] }))
+        API.get("/tasks").catch(() => ({ data: [] })),
+        API.get("/cases").catch(() => ({ data: [] }))
       ]);
       setTasks(tasksRes.data || []);
       setFilteredTasks(tasksRes.data || []);
@@ -73,7 +73,7 @@ function Tasks() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await API.post("/api/tasks", form);
+      await API.post("/tasks", form);
       setMessage("✓ Task added successfully!");
       setForm({
         caseId: "",
@@ -93,7 +93,7 @@ function Tasks() {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this task?")) {
       try {
-        await API.delete(`/api/tasks/${id}`);
+        await API.delete(`/tasks/${id}`);
         setMessage("✓ Task deleted successfully!");
         setTimeout(() => setMessage(""), 3000);
         fetchTasks();

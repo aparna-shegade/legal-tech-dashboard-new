@@ -19,7 +19,7 @@ function Clients() {
   const fetchClients = async () => {
     setLoading(true);
     try {
-      const res = await API.get("/api/clients").catch(() => ({ data: [] }));
+      const res = await API.get("/clients").catch(() => ({ data: [] }));
       setClients(res.data || []);
       setFilteredClients(res.data || []);
     } catch (err) {
@@ -63,7 +63,7 @@ function Clients() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await API.post("/api/clients", form);
+      await API.post("/clients", form);
       setMessage("✓ Client added successfully!");
       setForm({ name: "", email: "", phone: "", address: "" });
       setShowForm(false);
@@ -77,7 +77,7 @@ function Clients() {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this client?")) {
       try {
-        await API.delete(`/api/clients/${id}`);
+        await API.delete(`/clients/${id}`);
         setMessage("✓ Client deleted successfully!");
         setTimeout(() => setMessage(""), 3000);
         fetchClients();

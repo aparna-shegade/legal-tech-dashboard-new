@@ -23,8 +23,8 @@ function Documents() {
     setLoading(true);
     try {
       const [docsRes, casesRes] = await Promise.all([
-        API.get("/api/documents").catch(() => ({ data: [] })),
-        API.get("/api/cases").catch(() => ({ data: [] }))
+        API.get("/documents").catch(() => ({ data: [] })),
+        API.get("/cases").catch(() => ({ data: [] }))
       ]);
       setDocuments(docsRes.data || []);
       setFilteredDocuments(docsRes.data || []);
@@ -73,7 +73,7 @@ function Documents() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await API.post("/api/documents", form);
+      await API.post("/documents", form);
       setMessage("✓ Document added successfully!");
       setForm({
         caseId: "",
@@ -92,7 +92,7 @@ function Documents() {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this document?")) {
       try {
-        await API.delete(`/api/documents/${id}`);
+        await API.delete(`/documents/${id}`);
         setMessage("✓ Document deleted successfully!");
         setTimeout(() => setMessage(""), 3000);
         fetchDocuments();
